@@ -14,8 +14,8 @@ RUN /venv/bin/pip install --disable-pip-version-check -r /requirements.txt
 # Copy the virtualenv into a distroless image
 FROM gcr.io/distroless/python3-debian11
 WORKDIR /app
-COPY --from=ffmpeg-build /static-ffmpeg/* /usr/local/bin/
 COPY --from=build-venv /venv /venv
+COPY --from=ffmpeg-build /static-ffmpeg/* /usr/local/bin/
 COPY . .
 ENTRYPOINT ["/venv/bin/python3"]
 CMD ["-m", "dpwatermarkbot"]
