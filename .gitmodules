@@ -1,3 +1,0 @@
-[submodule "nginx-conf"]
-	path = nginx-conf
-	url = https://github.com/lebinh/nginx-conf
