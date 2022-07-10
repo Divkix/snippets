@@ -1,12 +1,12 @@
 FROM ghcr.io/divideprojects/docker-python-base:latest AS build
 
 # Install external packages in base image
-FROM build AS deb-extractor
+FROM build as deb-extractor
 RUN cd /tmp \
     && apt-get update \
     && apt-get download $(apt-cache depends --recurse --no-recommends --no-suggests \
     --no-conflicts --no-breaks --no-replaces --no-enhances \
-    --no-pre-depends doppler | grep "^\w") \
+    --no-pre-depends "packages-needed-like-wget" | grep "^\w") \
     && mkdir /dpkg \
     && for deb in *.deb; do dpkg --extract $deb /dpkg || exit 10; done
 
@@ -22,5 +22,8 @@ WORKDIR /app
 COPY --from=deb-extractor /dpkg /
 COPY --from=build-venv /venv /venv
 COPY . .
-ENTRYPOINT ["doppler", "run", "--"]
-CMD ["/venv/bin/python3", "-m", "bots"]
+ENTRYPOINT ["/venv/bin/python3"]
+CMD ["anyfile.py"]
+
+
+
