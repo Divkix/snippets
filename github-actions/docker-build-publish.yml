@@ -4,13 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - Dockerfile
-      - docker-entrypoint.sh
-      - .github/workflows/docker-build.yml
-  repository_dispatch:
-    # using: https://github.com/DivideProjects/repo-watcher-dispatch-sender
-    types: upstream_update
   workflow_dispatch:
 
 jobs:
