@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
 import os
-import requests
 import sys
 from collections import defaultdict
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List, Optional, Tuple
+
+import requests
 
 REPO = os.getenv("REPO") or input("Enter the repo name: ").strip()
 OWNER = os.getenv("OWNER") or input("Enter the owner (organization/username): ").strip()
@@ -15,7 +16,7 @@ headers = {"Authorization": f"token {TOKEN}"}
 print("Retrieving all deployments...")
 env_map: Dict[str, List[int]] = defaultdict(list)
 next_link: Optional[Dict[str, str]] = {
-    "url": f"https://api.github.com/repos/{OWNER}/{REPO}/deployments?per_page=100"
+    "url": f"https://api.github.com/repos/{OWNER}/{REPO}/deployments?per_page=100",
 }
 while next_link:
     deploys = requests.get(next_link["url"], headers=headers)

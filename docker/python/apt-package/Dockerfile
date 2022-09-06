@@ -24,6 +24,3 @@ COPY --from=build-venv /venv /venv
 COPY . .
 ENTRYPOINT ["/venv/bin/python3"]
 CMD ["anyfile.py"]
-
-
-
