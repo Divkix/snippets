@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10"]
+        python-version: ["3.8", "3.9", "3.10"]
         os: [ubuntu-latest, macOS-latest, windows-latest]
 
     steps:
@@ -53,6 +53,7 @@ jobs:
           pypi_token: ${{ secrets.PYPI_TOKEN }}
 
   automerge-dependabot-pr:
+    name: Automerge Dependabot PRs
     if: github.actor == 'dependabot[bot]' && github.event_name == 'pull_request'
     needs:
       - pre-commit
