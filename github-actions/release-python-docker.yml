@@ -11,9 +11,19 @@ on:
         required: true
 
 jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - uses: pre-commit/action@v3.0.0
+
   # only run this step when the tag is not already created
   create-tag:
     name: Create new tag
+    needs: pre-commit
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
