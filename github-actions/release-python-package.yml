@@ -81,6 +81,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: ${{ needs.get-repo-info.outputs.tag }}
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
@@ -104,6 +105,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: ${{ needs.get-repo-info.outputs.tag }}
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
@@ -114,12 +116,15 @@ jobs:
 
   push-to-pypi:
     name: Push to PyPI
-    needs: release
+    needs:
+     - release
+     - get-repo-info
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: ${{ needs.get-repo-info.outputs.tag }}
       - name: Publish python poetry package
         uses: JRubics/poetry-publish@v1.13
         with:
