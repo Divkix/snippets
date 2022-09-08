@@ -24,9 +24,11 @@ jobs:
       os: ${{ matrix.os }}
 
   automerge-dependabot-pr:
-    name: Automerge Dependabot PRs
     if: github.actor == 'dependabot[bot]' && github.event_name == 'pull_request'
     needs:
       - pre-commit
       - build-and-test
+    permissions:
+      pull-requests: write
+      contents: write
     uses: divkix/reusable-workflows/.github/workflows/automerge-dependabot-pr.yml@main
