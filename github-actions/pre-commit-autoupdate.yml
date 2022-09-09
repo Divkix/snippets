@@ -7,4 +7,3 @@ on:
 jobs:
   auto-update:
     uses: divkix/reusable-workflows/.github/workflows/pre-commit-autoupdate.yml@main
-    secrets: inherit
