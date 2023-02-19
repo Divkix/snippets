@@ -1,0 +1,22 @@
+#cloud-config
+users:
+  - default
+  - name: ubuntu
+    gecos: Ubuntu
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, admin
+    shell: /bin/bash
+    ssh_import_id: None
+    lock_passwd: true
+    ssh_authorized_keys:
+      - <SSH public key from macOS>
+package_update: true
+package_upgrade: true
+packages:
+  - avahi-daemon
+write_files:
+  - content: |
+      # custom
+      alias update='sudo apt update && sudo apt upgrade && sudo apt dist-upgrade && sudo apt autoremove && sudo apt auto-clean'
+  - path: /etc/skel/.bashrc
+  - append: true
