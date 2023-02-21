@@ -1,4 +1,4 @@
-FROM ghcr.io/divideprojects/docker-python-base:latest AS build
+FROM ghcr.io/divkix/docker-python-base:latest AS build
 
 # Install external packages in base image
 FROM build as deb-extractor
