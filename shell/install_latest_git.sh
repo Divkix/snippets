@@ -1,19 +1,21 @@
 #!/usr/bin/env bash
 
-LATEST_TAG=$(curl https://api.github.com/repos/git/git/tags | jq -r '.[0].name')
+set -euo pipefail
 
-git clone https://github.com/git/git -b "$LATEST_TAG"
+readonly LATEST_TAG=$(curl -s https://api.github.com/repos/git/git/tags | jq -r '.[0].name')
 
-cd git || exit
+git clone --depth=1 "https://github.com/git/git" -b "$LATEST_TAG"
+
+cd git
 
 make configure
 
 ./configure --prefix=/usr/local --with-curl
 
-sudo make install -j"$(nproc)"
+sudo make -j "$(nproc)" install
 
-git --version
+echo "Git version $(git --version) installed successfully."
 
-cd - || exit
+cd -
 
 rm -rf git
